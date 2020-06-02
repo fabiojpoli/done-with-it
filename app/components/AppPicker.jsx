@@ -13,14 +13,24 @@ import defaultStyles from '../config/styles';
 import AppText from './AppText';
 import Screen from './Screen';
 import PickerItem from './PickerItem';
+import colors from '../config/colors';
 
-function AppPicker({ icon, items, onSelectItem, placeholder, selectedItem }) {
+function AppPicker({
+  icon,
+  items,
+  onSelectItem,
+  placeholder,
+  selectedItem,
+  valueField = 'value',
+  labelField = 'label',
+  style,
+}) {
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <>
       <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
-        <View style={styles.container}>
+        <View style={[styles.container, style]}>
           {icon && (
             <MaterialCommunityIcons
               name={icon}
@@ -29,8 +39,9 @@ function AppPicker({ icon, items, onSelectItem, placeholder, selectedItem }) {
               style={styles.icon}
             />
           )}
-          <AppText style={styles.text}>
-            {selectedItem ? selectedItem.label : placeholder}
+
+          <AppText style={selectedItem ? styles.text : styles.placeholder}>
+            {selectedItem ? selectedItem[labelField] : placeholder}
           </AppText>
           <MaterialCommunityIcons
             name='chevron-down'
@@ -44,10 +55,10 @@ function AppPicker({ icon, items, onSelectItem, placeholder, selectedItem }) {
           <Button title='Close' onPress={() => setModalVisible(false)} />
           <FlatList
             data={items}
-            keyExtractor={(item) => item.value.toString()}
+            keyExtractor={(item) => item[valueField].toString()}
             renderItem={({ item }) => (
               <PickerItem
-                label={item.label}
+                label={item[labelField]}
                 onPress={() => {
                   setModalVisible(false);
                   onSelectItem(item);
@@ -72,6 +83,10 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 10,
+  },
+  placeholder: {
+    color: defaultStyles.colors.medium,
+    flex: 1,
   },
   text: {
     flex: 1,

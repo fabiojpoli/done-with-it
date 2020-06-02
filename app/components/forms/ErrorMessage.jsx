@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 
-import AppText from './AppText';
-import colors from '../config/colors';
+import AppText from './../AppText';
+import colors from '../../config/colors';
 
 function ErrorMessage({ error, visible }) {
   if (!error || !visible) {
