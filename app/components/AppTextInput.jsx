@@ -4,9 +4,9 @@ import { View, TextInput, StyleSheet } from 'react-native';
 
 import defaultStyles from '../config/styles';
 
-function AppTextInput({ icon, style, ...otherProps }) {
+function AppTextInput({ icon, style, width = '100%', ...otherProps }) {
   return (
-    <View style={[styles.container, style]}>
+    <View style={[styles.container, style, { width: width }]}>
       {icon && (
         <MaterialCommunityIcons
           name={icon}
@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
     backgroundColor: defaultStyles.colors.light,
     borderRadius: 25,
     flexDirection: 'row',
-    width: '100%',
     padding: 15,
     marginVertical: 10,
   },

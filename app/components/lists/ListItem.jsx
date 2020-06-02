@@ -27,7 +27,7 @@ function ListItem({
               {title}
             </AppText>
             {subTitle && (
-              <AppText style={styles.subTitle} numberOfLines={1}>
+              <AppText style={styles.subTitle} numberOfLines={2}>
                 {subTitle}
               </AppText>
             )}
@@ -35,7 +35,7 @@ function ListItem({
           {showChevrons && (
             <MaterialCommunityIcons
               name='chevron-right'
-              size={30}
+              size={25}
               color={colors.medium}
             />
           )}
