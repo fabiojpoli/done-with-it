@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { FlatList } from 'react-native';
 
@@ -8,8 +8,7 @@ import Icon from '../components/Icon';
 import ListItemSeparator from '../components/lists/ListItemSeparator';
 import colors from '../config/colors';
 import routes from '../navigation/routes';
-import AuthContext from '../auth/context';
-import authStorage from '../auth/storage';
+import useAuth from '../auth/useAuth';
 
 const menuItems = [
   {
@@ -30,12 +29,7 @@ const menuItems = [
 ];
 
 function MyAccountScreen({ navigation }) {
-  const { user, setUser } = useContext(AuthContext);
-
-  const handleLogOut = () => {
-    setUser(null);
-    authStorage.removeToken();
-  };
+  const { user, logOut } = useAuth();
 
   return (
     <Screen style={styles.screen}>
@@ -68,7 +62,7 @@ function MyAccountScreen({ navigation }) {
       <ListItem
         title='Log Out'
         IconComponent={<Icon name='logout' backgroundColor={colors.warning} />}
-        onPress={handleLogOut}
+        onPress={() => logOut()}
       />
     </Screen>
   );
